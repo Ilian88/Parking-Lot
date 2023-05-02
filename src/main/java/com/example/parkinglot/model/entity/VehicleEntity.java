@@ -2,6 +2,7 @@ package com.example.parkinglot.model.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -14,65 +15,72 @@ public abstract class VehicleEntity extends BaseEntity {
     public VehicleEntity() {
     }
 
-    @Column(name = "license-plate", nullable = false)
-    @Size(min = 4)
     protected String licencePlate;
-    @Column(name = "entered-at", nullable = false)
+
     protected LocalDateTime enteredAt;
-    @Column(name = "left-at")
+
     protected LocalDateTime leftAt;
 
-    @Column(name = "total-sum")
     protected BigDecimal totalPrice;
 
-    protected String getLicencePlate() {
+    @Column(name = "license_plate", nullable = false)
+    @Size(min = 4)
+    public String getLicencePlate() {
         return licencePlate;
     }
 
-    protected VehicleEntity setLicencePlate(String licencePlate) {
+    public VehicleEntity setLicencePlate(String licencePlate) {
         this.licencePlate = licencePlate;
         return this;
     }
 
-    protected LocalDateTime getEnteredAt() {
+    @Column(name = "entered_at", nullable = false)
+    public LocalDateTime getEnteredAt() {
         return enteredAt;
     }
 
-    protected VehicleEntity setEnteredAt(LocalDateTime enteredAt) {
+    public VehicleEntity setEnteredAt(LocalDateTime enteredAt) {
         this.enteredAt = enteredAt;
         return this;
     }
 
-    protected LocalDateTime getLeftAt() {
+    @Column(name = "left_at")
+    public LocalDateTime getLeftAt() {
         return leftAt;
     }
 
-    protected VehicleEntity setLeftAt(LocalDateTime leftAt) {
+    public VehicleEntity setLeftAt(LocalDateTime leftAt) {
         this.leftAt = leftAt;
         return this;
     }
 
-    protected BigDecimal getTotalPrice() {
+    @Column(name = "total_price")
+    @Positive
+    public BigDecimal getTotalPrice() {
         return totalPrice;
     }
 
-    protected VehicleEntity setTotalPrice(BigDecimal totalSum) {
+    public VehicleEntity setTotalPrice(BigDecimal totalSum) {
         this.totalPrice = totalSum;
         return this;
     }
 
     protected void calculateTotalPrice(int hourlyPrice, int wholeDayPrice) {
-        long diff = ChronoUnit.MINUTES.between(enteredAt, leftAt);
+        long diff = this.calculateHoursSpent();
 
         if (diff < 24) {
             this.totalPrice = BigDecimal.valueOf(diff * hourlyPrice);
 
         } else {
             long days = diff / 24;
-            long minutes = diff % 24;
+            long hours = diff % 24;
 
-            this.totalPrice = BigDecimal.valueOf((days * wholeDayPrice) + (minutes * hourlyPrice));
+            this.totalPrice = BigDecimal.valueOf((days * wholeDayPrice) + (hours * hourlyPrice));
         }
     };
+
+    public long calculateHoursSpent() {
+        return ChronoUnit.HOURS.between(enteredAt, leftAt);
+    }
 
 }

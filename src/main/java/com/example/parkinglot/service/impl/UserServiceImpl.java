@@ -4,10 +4,11 @@ import com.example.parkinglot.model.entity.UserEntity;
 import com.example.parkinglot.repository.UserRepository;
 import com.example.parkinglot.service.UserService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
-@Component
+@Service
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
