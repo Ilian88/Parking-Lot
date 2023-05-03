@@ -10,7 +10,7 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class EnterVehicleDTO {
-    private String licencePlate;
+    private String licensePlate;
 
     private LocalDateTime enteredAt;
 
@@ -20,12 +20,12 @@ public class EnterVehicleDTO {
     }
 
     @Size(min = 4, message = "Plate number must be at least 4 symbols")
-    public String getLicencePlate() {
-        return licencePlate;
+    public String getlicensePlate() {
+        return licensePlate;
     }
 
-    public EnterVehicleDTO setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
+    public EnterVehicleDTO setlicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
         return this;
     }
 
@@ -39,7 +39,7 @@ public class EnterVehicleDTO {
         return this;
     }
 
-    @NotBlank
+    @NotBlank(message = "Vehicle type must be either CAR or BUS")
     public String getVehicleType() {
         return vehicleType;
     }

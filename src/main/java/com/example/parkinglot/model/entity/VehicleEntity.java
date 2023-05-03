@@ -1,36 +1,37 @@
 package com.example.parkinglot.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.MappedSuperclass;
-import jakarta.validation.constraints.Positive;
+import com.example.parkinglot.model.enums.VehicleType;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
-@MappedSuperclass
-public abstract class VehicleEntity extends BaseEntity {
+@Entity
+@Table(name = "vehicles")
+public class VehicleEntity extends BaseEntity {
+
+    private String licensePlate;
+
+    private VehicleType vehicleType;
+
+    private LocalDateTime enteredAt;
+
+    private LocalDateTime leftAt;
+    
+    private ParkingSpace parkingSpace;
+
 
     public VehicleEntity() {
     }
 
-    protected String licencePlate;
-
-    protected LocalDateTime enteredAt;
-
-    protected LocalDateTime leftAt;
-
-    protected BigDecimal totalPrice;
-
-    @Column(name = "license_plate", nullable = false)
-    @Size(min = 4)
-    public String getLicencePlate() {
-        return licencePlate;
+    @Column(name = "license_plate", nullable = false, unique = true)
+    @Size(min = 4, message = "License plate bust be at least 4 symbols")
+    public String getLicensePlate() {
+        return licensePlate;
     }
 
-    public VehicleEntity setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
+    public VehicleEntity setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
         return this;
     }
 
@@ -54,33 +55,23 @@ public abstract class VehicleEntity extends BaseEntity {
         return this;
     }
 
-    @Column(name = "total_price")
-    @Positive
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
+    @OneToOne(mappedBy = "vehicle")
+    public ParkingSpace getParkingSpace() {
+        return parkingSpace;
     }
 
-    public VehicleEntity setTotalPrice(BigDecimal totalSum) {
-        this.totalPrice = totalSum;
+    @Enumerated(EnumType.STRING)
+    public VehicleType getVehicleType() {
+        return vehicleType;
+    }
+
+    public VehicleEntity setVehicleType(VehicleType vehicleType) {
+        this.vehicleType = vehicleType;
         return this;
     }
 
-    protected void calculateTotalPrice(int hourlyPrice, int wholeDayPrice) {
-        long diff = this.calculateHoursSpent();
-
-        if (diff < 24) {
-            this.totalPrice = BigDecimal.valueOf(diff * hourlyPrice);
-
-        } else {
-            long days = diff / 24;
-            long hours = diff % 24;
-
-            this.totalPrice = BigDecimal.valueOf((days * wholeDayPrice) + (hours * hourlyPrice));
-        }
-    };
-
-    public long calculateHoursSpent() {
-        return ChronoUnit.HOURS.between(enteredAt, leftAt);
+    public VehicleEntity setParkingSpace(ParkingSpace parkingSpace) {
+        this.parkingSpace = parkingSpace;
+        return this;
     }
-
 }

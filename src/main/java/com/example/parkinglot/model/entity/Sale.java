@@ -1,79 +1,63 @@
 package com.example.parkinglot.model.entity;
 
-import com.example.parkinglot.model.enums.VehicleType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table
 @Entity(name = "sales")
 public class Sale extends BaseEntity {
+    private VehicleEntity vehicle;
+    private BigDecimal price;
 
-    private String licencePlate;
+    private LocalDateTime createdOn;
+    private long hoursSpent;
 
-    private long timeSpent;
-
-    private VehicleType vehicleType;
-
-    private BigDecimal totalSum;
-
-    private LocalDateTime dateOfSale;
     public Sale() {
     }
 
-    @Column(name = "license_plate", nullable = false)
-    @Size(min = 4)
-    public String getLicencePlate() {
-        return licencePlate;
+    @OneToOne
+    public VehicleEntity getVehicle() {
+        return vehicle;
     }
 
-    public Sale setLicencePlate(String licencePlate) {
-        this.licencePlate = licencePlate;
+    public Sale setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
         return this;
     }
 
-    @Column(name = "time_spent", nullable = false)
+    @Column(name = "price")
     @Positive
-    public long getTimeSpent() {
-        return timeSpent;
+    public BigDecimal getPrice() {
+        return price;
     }
 
-    public Sale setTimeSpent(long timeSpent) {
-        this.timeSpent = timeSpent;
+    public Sale setPrice(BigDecimal price) {
+        this.price = price;
         return this;
     }
 
-    @Column(name = "total_sum")
+    @Column(name = "hours_spent")
     @Positive
-    public BigDecimal getTotalSum() {
-        return totalSum;
+    public long getHoursSpent() {
+        return hoursSpent;
     }
 
-    public Sale setTotalSum(BigDecimal totalSum) {
-        this.totalSum = totalSum;
+    public Sale setHoursSpent(long hoursSpent) {
+        this.hoursSpent = hoursSpent;
         return this;
     }
 
-    @Column(name = "date_of_sale")
-    public LocalDateTime getDateOfSale() {
-        return dateOfSale;
+    @Column(name = "created_on")
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
     }
 
-    public Sale setDateOfSale(LocalDateTime dateOfSale) {
-        this.dateOfSale = dateOfSale;
-        return this;
-    }
-
-    @Enumerated(EnumType.STRING)
-    public VehicleType getVehicleType() {
-        return vehicleType;
-    }
-
-    public Sale setVehicleType(VehicleType vehicleType) {
-        this.vehicleType = vehicleType;
+    public Sale setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
         return this;
     }
 }

@@ -7,8 +7,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "parking_space")
 public class ParkingSpace extends BaseEntity {
-    private CarEntity car;
-    private BusEntity bus;
+    private VehicleEntity vehicle;
 
     private ParkingSpaceStatus status;
 
@@ -16,22 +15,12 @@ public class ParkingSpace extends BaseEntity {
     }
 
     @OneToOne
-    public CarEntity getCar() {
-        return car;
+    public VehicleEntity getVehicle() {
+        return vehicle;
     }
 
-    public ParkingSpace setCar(CarEntity car) {
-        this.car = car;
-        return this;
-    }
-
-    @OneToOne
-    public BusEntity getBus() {
-        return bus;
-    }
-
-    public ParkingSpace setBus(BusEntity bus) {
-        this.bus = bus;
+    public ParkingSpace setVehicle(VehicleEntity vehicle) {
+        this.vehicle = vehicle;
         return this;
     }
 
