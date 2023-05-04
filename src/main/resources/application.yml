@@ -10,7 +10,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQL94Dialect
         format_sql: TRUE
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     defer-datasource-initialization: true
     show-sql: true
   sql:

@@ -33,7 +33,7 @@
   * It is a POST request
   * Endpoint: http://localhost:8080/vehicles/exit
     * License plate of the vehicle that leave must be sent as query param
-    * If there is no such vehicle in parking, error message will be returned
+    * If there is no such vehicle in parking, status 404 Not Found will be returned
     * When vehicle leaves the parking, the time spent and amount will be calculated and stored in db
     * Example: http://localhost:8080/vehicles/exit?licensePlate=BP0506CX
 
