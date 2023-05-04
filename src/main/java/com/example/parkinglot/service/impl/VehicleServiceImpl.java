@@ -74,6 +74,11 @@ public class VehicleServiceImpl implements VehicleService {
         this.saleService.saveSale(sale);
     }
 
+    @Override
+    public VehicleEntity getVehicleBySaleId(long saleId) {
+        return this.vehicleRepository.findBySaleId(saleId);
+    }
+
     private void checkIfVehicleAlreadyExists(String licensePlate) {
         boolean exists = this.vehicleRepository.existsByLicensePlate(licensePlate);
 

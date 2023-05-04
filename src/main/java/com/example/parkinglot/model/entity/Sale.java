@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table
@@ -12,9 +11,8 @@ import java.time.LocalDateTime;
 public class Sale extends BaseEntity {
     private VehicleEntity vehicle;
     private BigDecimal price;
-
     private LocalDateTime createdOn;
-    private long hoursSpent;
+    private long hoursToCharge;
 
     public Sale() {
     }
@@ -40,14 +38,14 @@ public class Sale extends BaseEntity {
         return this;
     }
 
-    @Column(name = "hours_spent")
+    @Column(name = "hours_charged")
     @Positive
-    public long getHoursSpent() {
-        return hoursSpent;
+    public long getHoursToCharge() {
+        return hoursToCharge;
     }
 
-    public Sale setHoursSpent(long hoursSpent) {
-        this.hoursSpent = hoursSpent;
+    public Sale setHoursToCharge(long hoursToCharge) {
+        this.hoursToCharge = hoursToCharge;
         return this;
     }
 

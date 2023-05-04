@@ -17,12 +17,13 @@ public class DBInitialValueCreator implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserEntity user = new UserEntity();
+        if (userRepository.count() == 0) {
+            UserEntity user = new UserEntity();
+            user.setUsername("ilian88")
+                    .setPassword(new BCryptPasswordEncoder().encode("12345"))
+                    .setRole(Role.ADMIN);
 
-        user.setUsername("ilian88")
-                .setPassword(new BCryptPasswordEncoder().encode("12345"))
-                .setRole(Role.ADMIN);
-
-        this.userRepository.save(user);
+            this.userRepository.save(user);
+        }
     }
 }

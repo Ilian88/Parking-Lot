@@ -20,6 +20,8 @@ public class VehicleEntity extends BaseEntity {
     
     private ParkingSpace parkingSpace;
 
+    private Sale sale;
+
 
     public VehicleEntity() {
     }
@@ -72,6 +74,16 @@ public class VehicleEntity extends BaseEntity {
 
     public VehicleEntity setParkingSpace(ParkingSpace parkingSpace) {
         this.parkingSpace = parkingSpace;
+        return this;
+    }
+
+    @OneToOne(mappedBy = "vehicle")
+    public Sale getSale() {
+        return sale;
+    }
+
+    public VehicleEntity setSale(Sale sale) {
+        this.sale = sale;
         return this;
     }
 }
