@@ -8,6 +8,11 @@
 
 ## Database 
 * Database should be installed and configuration put in the "src/main/resources/application.yml" accordingly
+* Currently, using postgres database
+* At start database will be empty, only user one user is populated(mentioned above)
+
+## Build tool
+* Gradle is used as a build tool
 
 ## Endpoints
 * Vehicle enters in parking 

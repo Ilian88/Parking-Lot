@@ -85,6 +85,7 @@ public class SaleServiceImpl implements SaleService {
         SaleReportDTO saleReportDTO = new SaleReportDTO();
 
         return saleReportDTO
+                .setLicensePlate(vehicle.getLicensePlate())
                 .setEnteredAt(vehicle.getEnteredAt())
                 .setLeftAt(vehicle.getLeftAt())
                 .setVehicleType(vehicle.getVehicleType())

@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class SaleReportDTO {
+
+    String licensePlate;
     private VehicleType vehicleType;
 
     private LocalDateTime enteredAt;
@@ -25,6 +27,15 @@ public class SaleReportDTO {
 
     public SaleReportDTO setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
+        return this;
+    }
+
+    public String getLicensePlate() {
+        return licensePlate;
+    }
+
+    public SaleReportDTO setLicensePlate(String licensePlate) {
+        this.licensePlate = licensePlate;
         return this;
     }
 
